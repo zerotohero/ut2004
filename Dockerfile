@@ -45,7 +45,7 @@ RUN echo "install packages" \
  && modini \
       --input "${UT2004_DIR}/System/UT2004.ini" \
       --output "${UT2004_DIR}/System/UT2004.ini" \
-      --modify "[IpDrv.MasterServerUplink];UplinkToGamespy=False;[IpDrv.TcpNetDriver];MaxClientRate=20000;MaxInternetClientRate=20000;NetServerMaxTickRate=35;" \
+      --modify "[IpDrv.MasterServerUplink];UplinkToGamespy=False;" \
  && cd "${UT2004_DIR}/System" \
  && "${UT2004_UCC}" \
  && echo "done"
