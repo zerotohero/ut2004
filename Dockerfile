@@ -2,7 +2,8 @@ FROM debian:jessie
 
 ENV UT2004_DIR=/usr/src/ut2004 \
     UT2004_UCC=/usr/src/ut2004/System/ucc-bin-linux-amd64 \
-    UT2004_HOME=/home/ut2004
+    UT2004_HOME=/home/ut2004 \
+    UT2004_CMD=CTF-FACECLASSIC?game=XGame.xCTFGame
 
 COPY scripts /usr/local/bin/
 

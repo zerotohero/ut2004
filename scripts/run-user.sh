@@ -15,4 +15,4 @@ chown -R ut2004:ut2004 "${UT2004_HOME}/.ut2004"
 chmod -R a=,u=rwX "${UT2004_HOME}/.ut2004"
 
 echo "Starting unreal server"
-exec "${UT2004_UCC}" server "CTF-FACECLASSIC?game=XGame.xCTFGame"
+exec "${UT2004_UCC}" server "${UT2004_CMD}"
