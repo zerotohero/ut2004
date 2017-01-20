@@ -10,7 +10,6 @@ sha1=${2}           # argument 2, required, sha1 hash of downloaded file, used t
 filename=${3}       # argument 3, required, filename of downloaded file
 dest_dir=${4}       # argument 4, required, extract archive contents to this directory
 src_dir=${5:-.}     # argument 5, optional, only extract this subdirectory from the archive
-overwrite=${6:-no}  # argument 6, optional, overwrite existing files
 
 dir="/tmp/${RANDOM}"
 download_file="${dir}/${filename}"
@@ -47,13 +46,10 @@ if [ "$(echo "${extracted_files}" | wc -l)" = "1" ]; then
   fi
 fi
 
-echo "Copying files from ${source_dir} to ${dest_dir}"
+echo "Moving files from ${source_dir} to ${dest_dir}"
 mkdir --parents ${dest_dir}
-if [[ "${overwrite}" == "yes" ]]; then
-  cp --recursive --link --force      "${source_dir}" "${dest_dir}"
-else
-  cp --recursive --link --no-clobber "${source_dir}" "${dest_dir}"
-fi
+( cd "${source_dir}" && find . -type d -exec mkdir --parents "${dest_dir}/{}" \; )
+( cd "${source_dir}" && find . -type f -exec mv {} "${dest_dir}/{}" \; )
 
 echo "Cleanup ${dir}"
 rm --recursive --force "${dir}"
