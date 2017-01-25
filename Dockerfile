@@ -2,17 +2,20 @@ FROM debian:jessie
 
 ENV UT2004_DIR=/usr/src/ut2004 \
     UT2004_UCC=/usr/src/ut2004/System/ucc-bin-linux-amd64 \
+    UT2004_UCC32=/usr/src/ut2004/System/ucc-bin \
     UT2004_HOME=/home/ut2004 \
     UT2004_CMD=CTF-FACECLASSIC?game=XGame.xCTFGame
 
 COPY scripts /usr/local/bin/
 
 RUN echo "install packages" \
+ && dpkg --add-architecture i386 \
  && apt-get --quiet update \
  && apt-get --quiet install --yes --no-install-recommends \
       ca-certificates \
       curl \
       libstdc++5 \
+      libstdc++5:i386 \
       p7zip-full \
  && rm -rf /var/lib/apt/lists/* \
  && echo "install tini" \
@@ -41,7 +44,7 @@ RUN echo "install packages" \
     "${UT2004_DIR}" \
  && chown -R root:ut2004 "${UT2004_DIR}" \
  && chmod -R a=,ug=rX "${UT2004_DIR}" \
- && chmod 550 "${UT2004_UCC}" \
+ && chmod 550 "${UT2004_UCC}" "${UT2004_UCC32}" \
  && echo "tweak settings" \
  && modini \
       --input "${UT2004_DIR}/System/UT2004.ini" \
@@ -49,6 +52,7 @@ RUN echo "install packages" \
       --modify "[IpDrv.MasterServerUplink];UplinkToGamespy=False;" \
  && cd "${UT2004_DIR}/System" \
  && "${UT2004_UCC}" \
+ && "${UT2004_UCC32}" \
  && echo "done"
 
 WORKDIR ${UT2004_DIR}/System
