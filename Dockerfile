@@ -26,8 +26,8 @@ RUN echo "install packages" \
  && chmod +x /usr/local/bin/gosu \
  && gosu nobody true \
  && echo "install modini" \
- && curl --silent --show-error --location --output /usr/local/bin/modini "https://github.com/reflectivecode/modini/releases/download/v0.5.0/modini-amd64" \
- && echo "2dd275121ad5b3c6e864b13891fca4a31d5ac1e901d3af6b728a059ed9c95e0a /usr/local/bin/modini" | sha256sum --check - \
+ && curl --silent --show-error --location --output /usr/local/bin/modini "https://github.com/reflectivecode/modini/releases/download/v0.6.0/modini-amd64" \
+ && echo "38ce4a2a590ab95d174feebcff38b9fdbb311f138d0bd8855f91196d4d64267b /usr/local/bin/modini" | sha256sum --check - \
  && chmod +x /usr/local/bin/modini \
  && modini --version \
  && echo "add ut2004 user" \
